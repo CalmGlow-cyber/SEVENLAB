@@ -12,3 +12,15 @@
   const stableRenderHistory=renderHistory;renderHistory=function(){stableRenderHistory();$$('[data-rm]').forEach(b=>{b.onclick=async()=>{if(!confirm('Eliminare definitivamente questa sessione da tutti i dispositivi?'))return;const id=b.dataset.rm;try{await remove(id);DB.history=DB.history.filter(s=>s.id!==id);cache();stableRenderHistory();toast('Sessione eliminata dal cloud')}catch(e){console.error(e);toast('Eliminazione cloud non riuscita')}}})};
   document.querySelectorAll('[data-go="storico"]').forEach(b=>b.addEventListener('click',()=>setTimeout(pull,50)));document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull()});setInterval(()=>{if(document.getElementById('storico')?.classList.contains('active'))pull()},8000);window.SevenLabCloudHistory={pull};setTimeout(pull,900);
 })();
+
+// UI isolation guard: Game-only decorations must never leak back into training Live.
+(function(){
+  const previousRenderLive=renderLive;
+  renderLive=function(){
+    previousRenderLive();
+    if((C()?.tipo||'allenamento')!=='partita'){
+      document.querySelectorAll('.gameScoreNames,.gameLiveBadge,.gameMeta').forEach(x=>x.remove());
+      $$('[data-score]').forEach(b=>b.style.display='');
+    }
+  };
+})();
