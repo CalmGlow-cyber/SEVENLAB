@@ -44,22 +44,28 @@
     if(state)state.textContent=Team.name?`Squadra attiva: ${Team.name}`:'Da impostare prima di utilizzare Game.';
   }
   async function saveName(name){
-    if(!Team.userId){const u=await getUser();Team.userId=u.id}
-    await request('user_team_profiles?on_conflict=user_id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({user_id:Team.userId,team_name:name,updated_at:new Date().toISOString()})});
+    name=String(name||'').trim();
+    if(!name)throw new Error('Nome squadra vuoto');
+    // Update local state immediately: Game can use the saved name without waiting for another reload.
     Team.name=name;Team.ready=true;cache();renderSettings();
+    if(!Team.userId){const u=await getUser();Team.userId=u.id;cache()}
+    await request('user_team_profiles?on_conflict=user_id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({user_id:Team.userId,team_name:name,updated_at:new Date().toISOString()})});
     if(C()?.tipo==='partita'){C().team_name=name;save();if(typeof renderLive==='function')renderLive()}
     return name;
   }
   async function load(){
     loadCache();injectSettings();renderSettings();
-    if(!window.SevenLabAuth?.token)return;
+    // auth.js validates asynchronously on DOMContentLoaded. Wait briefly for its session token.
+    let tries=0;
+    while(!window.SevenLabAuth?.token&&tries<40){await new Promise(r=>setTimeout(r,100));tries++}
+    if(!window.SevenLabAuth?.token){Team.ready=true;renderSettings();return}
     try{
       const u=await getUser();Team.userId=u.id;
       const rows=await request('user_team_profiles?user_id=eq.'+encodeURIComponent(u.id)+'&select=user_id,team_name');
-      if(rows?.[0])Team.name=String(rows[0].team_name||'').trim();
+      if(rows?.[0]?.team_name)Team.name=String(rows[0].team_name).trim();
       Team.ready=true;cache();renderSettings();
     }catch(e){console.error('SevenLab team profile',e);Team.ready=true;renderSettings()}
   }
   Team.load=load;Team.save=saveName;
-  window.addEventListener('DOMContentLoaded',()=>setTimeout(load,1100));
+  window.addEventListener('DOMContentLoaded',()=>setTimeout(load,300));
 })();
