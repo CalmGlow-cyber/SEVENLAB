@@ -24,3 +24,12 @@
     }
   };
 })();
+
+// Incremental 0.6.1 identity layer. Kept separate from the 0.5.14 recovery baseline.
+(function(){
+  function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.body.appendChild(s)})}
+  loadScript('team-profile.js?v=601').then(()=>loadScript('patch061.js?v=601')).then(()=>{
+    const beta=document.querySelector('.top .beta');if(beta)beta.textContent='BETA 0.6.1';
+    document.querySelectorAll('#impostazioni .settingsvalue').forEach(x=>{if(/Beta 0\.6/i.test(x.textContent||''))x.textContent='Beta 0.6.1 Private'});
+  }).catch(e=>console.error('SevenLab 0.6.1 identity layer',e));
+})();
