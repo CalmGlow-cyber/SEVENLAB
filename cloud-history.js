@@ -1,4 +1,4 @@
-// SevenLab Cloud history sync 0.6. Sessions carry type metadata; events are normalized in public.events.
+// SevenLab Cloud history sync 0.6.2. Sessions carry type metadata; events are normalized in public.events.
 (function(){
   const URL='https://xkpjuevmygvsuhqvhqvx.supabase.co',KEY='sb_publishable_YwcEhLvfxVtQtaichsSSUw_nKVsCuzv';let syncing=false,initialized=false;
   function headers(){const t=window.SevenLabAuth?.token;if(!t)throw new Error('AUTH_REQUIRED');return{'apikey':KEY,'Authorization':'Bearer '+t,'Content-Type':'application/json'}}
@@ -25,11 +25,5 @@
   };
 })();
 
-// Incremental 0.6.1 identity layer. Kept separate from the 0.5.14 recovery baseline.
-(function(){
-  function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.body.appendChild(s)})}
-  loadScript('team-profile.js?v=601').then(()=>loadScript('patch061.js?v=601')).then(()=>{
-    const beta=document.querySelector('.top .beta');if(beta)beta.textContent='BETA 0.6.1';
-    document.querySelectorAll('#impostazioni .settingsvalue').forEach(x=>{if(/Beta 0\.6/i.test(x.textContent||''))x.textContent='Beta 0.6.1 Private'});
-  }).catch(e=>console.error('SevenLab 0.6.1 identity layer',e));
-})();
+// 0.6.2 note: team-profile.js and patch061.js are loaded directly by index.html.
+// Do not load them a second time here and do not overwrite the visible version label.
