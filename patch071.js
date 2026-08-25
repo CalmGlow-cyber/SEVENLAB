@@ -1,4 +1,5 @@
 // SevenLab 0.7.1 — session lifecycle markers + wide per-event CSV timeline.
+// FIX: lifecycle tracking must never replace Play/Pause/Stop handlers.
 (function(){
   function mmss(sec){sec=Math.max(0,Math.floor(Number(sec)||0));return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`}
   function addMarker(kind){
@@ -7,19 +8,26 @@
     c.events.push({id:Date.now()+Math.random(),pid:null,type:'session_marker',marker:kind,t:elapsed(),phase:c.phase,team:null,void:false,wallClock:new Date().toISOString()});
     save();
   }
-  function wrapLifecycle(){
+
+  // Non-invasive event observers. They DO NOT overwrite the established controls from app05/performance patches.
+  function installLifecycleObservers(){
     const play=$('#playBtn'),pause=$('#pauseBtn'),stop=$('#stopBtn');
     if(play&&!play.dataset.life071){
-      play.dataset.life071='1';const old=play.onclick;
-      play.onclick=function(e){const c=C();if(c?.id&&!c.startedAt)addMarker(c.phase==='pausa'?'second_half_start':'match_start');return old&&old.call(this,e)};
+      play.dataset.life071='1';
+      play.addEventListener('click',()=>{
+        const c=C();if(!c?.id||c.startedAt)return;
+        const kind=c.phase==='pausa'?'second_half_start':'match_start';
+        // Marker before the native handler changes phase/start timestamp.
+        addMarker(kind);
+      },true);
     }
     if(pause&&!pause.dataset.life071){
-      pause.dataset.life071='1';const old=pause.onclick;
-      pause.onclick=function(e){const c=C();if(c?.id&&c.startedAt)addMarker('half_time');return old&&old.call(this,e)};
+      pause.dataset.life071='1';
+      pause.addEventListener('click',()=>{const c=C();if(c?.id&&c.startedAt)addMarker('half_time')},true);
     }
     if(stop&&!stop.dataset.life071){
-      stop.dataset.life071='1';const old=stop.onclick;
-      stop.onclick=function(e){const c=C();if(c?.id)addMarker('match_end');return old&&old.call(this,e)};
+      stop.dataset.life071='1';
+      stop.addEventListener('click',()=>{const c=C();if(c?.id)addMarker('match_end')},true);
     }
   }
 
@@ -52,7 +60,7 @@
     else if(e.type==='yellow_card')on('Cartellino giallo');
     else if(e.type==='red_card')on('Cartellino rosso');
     else if(e.type==='goal_against')on('Gol subito');
-    else if(e.type==='sub'){on('Cambio entra');}
+    else if(e.type==='sub')on('Cambio entra');
     else if(e.type==='set_piece'){
       if(e.kind==='penalty'){on('Rigore tirato');if(e.outcome==='scored')on('Rigore segnato');if(e.outcome==='missed')on('Rigore sbagliato')}
       if(e.kind==='free_kick'){on('Punizione tirata');if(e.outcome==='scored')on('Punizione segnata');if(e.outcome==='missed')on('Punizione sbagliata')}
@@ -64,10 +72,8 @@
     const rows=[];
     (s.events||[]).filter(e=>!e.void).forEach(e=>{
       const sec=Math.max(0,Math.floor(Number(e.t)||0)),p=DB.roster.find(x=>String(x.id)===String(e.pid)),out=DB.roster.find(x=>String(x.id)===String(e.outId));
-      const flags=eventFlags(e);
-      const detail=e.type==='sub'&&out?`Esce ${out.name}`:e.reason||e.outcome||e.marker||'';
-      const row=[sec,Math.floor(sec/60),sec%60,mmss(sec),e.phase||'',p?.name||'',e.team||'',detail,...EVENT_COLS.map(k=>flags[k])];
-      rows.push(row);
+      const flags=eventFlags(e),detail=e.type==='sub'&&out?`Esce ${out.name}`:e.reason||e.outcome||e.marker||'';
+      rows.push([sec,Math.floor(sec/60),sec%60,mmss(sec),e.phase||'',p?.name||'',e.team||'',detail,...EVENT_COLS.map(k=>flags[k])]);
       if(e.type==='sub'&&out){const f2=Object.fromEntries(EVENT_COLS.map(k=>[k,'']));f2['Cambio esce']=1;rows.push([sec,Math.floor(sec/60),sec%60,mmss(sec),e.phase||'',out.name,e.team||'',`Entra ${p?.name||''}`,...EVENT_COLS.map(k=>f2[k])])}
     });
     return rows.sort((a,b)=>a[0]-b[0]);
@@ -79,27 +85,23 @@
   }
   function enc(v){return `"${String(v??'').replaceAll('"','""')}"`}
   function rebuildCSV(text,s){
-    const rows=parseCSV(text);
-    const idx=rows.findIndex(r=>r[0]==='EVENTI PARTITA'||r[0]==='TIMELINE EVENTI');
-    const base=idx>=0?rows.slice(0,idx):rows;
+    const rows=parseCSV(text),idx=rows.findIndex(r=>r[0]==='EVENTI PARTITA'||r[0]==='TIMELINE EVENTI'),base=idx>=0?rows.slice(0,idx):rows;
     while(base.length&&base[base.length-1].every(x=>!x))base.pop();
     base.push([],['TIMELINE EVENTI'],['Secondo totale','Minuto','Secondo','Minutaggio','Fase','Giocatore','Team','Dettaglio',...EVENT_COLS],...timelineRows(s));
     base.push([],['RIEPILOGO TEMPI'],['Durata effettiva',mmss(s.elapsed||0)]);
-    const marks=(s.events||[]).filter(e=>!e.void&&e.type==='session_marker');
-    const map={match_start:'Inizio partita',half_time:'Fine 1° tempo',second_half_start:'Inizio 2° tempo',match_end:'Fine partita'};
+    const marks=(s.events||[]).filter(e=>!e.void&&e.type==='session_marker'),map={match_start:'Inizio partita',half_time:'Fine 1° tempo',second_half_start:'Inizio 2° tempo',match_end:'Fine partita'};
     marks.forEach(e=>base.push([map[e.marker]||e.marker,mmss(e.t||0),e.wallClock||'']));
     return '\ufeff'+base.map(r=>r.map(enc).join(';')).join('\n');
   }
 
   const baseExport071=exportSessionCSV;
   exportSessionCSV=function(s){
-    const original=downloadText;
-    downloadText=function(text,name,mime){return original(rebuildCSV(text,s),name,mime)};
+    const original=downloadText;downloadText=function(text,name,mime){return original(rebuildCSV(text,s),name,mime)};
     try{return baseExport071(s)}finally{downloadText=original}
   };
 
-  wrapLifecycle();
+  installLifecycleObservers();
   const baseRenderLive071=renderLive;
-  renderLive=function(){baseRenderLive071();wrapLifecycle()};
+  renderLive=function(){baseRenderLive071();installLifecycleObservers()};
   window.SevenLab071={timelineRows};
 })();
