@@ -1,10 +1,7 @@
 // SevenLab 0.8 — responsive Live/Game layout for tablet/iPad landscape.
 (function(){
   function teamLabel(t,c){
-    if(c?.tipo==='partita'){
-      if(t==='A') return String(c.team_name||window.SevenLabTeam?.name||'Squadra').trim()||'Squadra';
-      return String(c.avversario||'Avversario').trim()||'Avversario';
-    }
+    if(c?.tipo==='partita') return String(c.team_name||window.SevenLabTeam?.name||'Squadra').trim()||'Squadra';
     return `Squadra ${t}`;
   }
 
@@ -50,6 +47,14 @@
         #live.live080 .microstats{font-size:10px}
         #live.live080 .cards070{display:grid;grid-template-columns:1fr 1fr;gap:6px}
         #live.live080 .cards070 .btn{min-height:42px}
+
+        /* GAME: one team only. Use landscape width to make players easier to find and tap. */
+        #live.live080.game080 .liveTeamsGrid080{grid-template-columns:1fr!important;max-width:none}
+        #live.live080.game080 .teamLiveCol080{padding:10px}
+        #live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+        #live.live080.game080 .teamLiveTitle080{top:178px}
+        #live.live080.game080 .liveplayer{min-width:0;padding:11px}
+        #live.live080.game080 .counter{min-height:58px}
       }
       @media (orientation:landscape) and (min-width:1024px){
         #live.live080 .wrap,#live.live080{max-width:none}
@@ -58,33 +63,43 @@
         #live.live080 .counter small{font-size:11px!important}
         .liveTeamsGrid080{gap:18px}
         .teamLiveCol080{padding:10px}
+        #live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
       }
     `;document.head.appendChild(s);
   }
 
   function reorganizeLive(){
-    const c=C?.(),root=document.getElementById('livePlayers');if(!root||!c?.id)return;
+    const c=C?.(),root=document.getElementById('livePlayers'),live=document.getElementById('live');if(!root||!c?.id)return;
+    const isGame=c.tipo==='partita';
+    live?.classList.toggle('game080',isGame);
     const cards=[...root.querySelectorAll(':scope > .liveplayer')];
     if(!cards.length){root.classList.add('liveTeams080');return}
+
     const grid=document.createElement('div');grid.className='liveTeamsGrid080';
     const cols={};
-    ['A','B'].forEach(t=>{
-      const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team=t;
-      const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel(t,c);
+
+    if(isGame){
+      const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team='A';
+      const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel('A',c);
       const list=document.createElement('div');list.className='teamLiveList080';
-      col.append(title,list);grid.appendChild(col);cols[t]=list;
-    });
-    cards.forEach(card=>{
-      const ev=card.querySelector('[data-ev]');const pid=ev?.dataset.ev?.split('|')?.[0];
-      let team=null;
-      try{team=pid?teamOf(pid,c):null}catch(e){}
-      (cols[team]||cols.A).appendChild(card);
-    });
-    if(!cols.A.children.length)cols.A.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
-    if(!cols.B.children.length){
-      const msg=c.tipo==='partita'?'Statistiche individuali avversarie non rilevate':'Nessun giocatore in campo';
-      cols.B.innerHTML=`<div class="teamLiveEmpty080">${msg}</div>`;
+      col.append(title,list);grid.appendChild(col);cols.A=list;
+      cards.forEach(card=>cols.A.appendChild(card));
+    }else{
+      ['A','B'].forEach(t=>{
+        const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team=t;
+        const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel(t,c);
+        const list=document.createElement('div');list.className='teamLiveList080';
+        col.append(title,list);grid.appendChild(col);cols[t]=list;
+      });
+      cards.forEach(card=>{
+        const ev=card.querySelector('[data-ev]');const pid=ev?.dataset.ev?.split('|')?.[0];
+        let team=null;try{team=pid?teamOf(pid,c):null}catch(e){}
+        (cols[team]||cols.A).appendChild(card);
+      });
+      if(!cols.A.children.length)cols.A.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
+      if(!cols.B.children.length)cols.B.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
     }
+
     root.innerHTML='';root.appendChild(grid);root.classList.add('liveTeams080');
   }
 
