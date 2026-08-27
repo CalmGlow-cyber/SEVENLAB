@@ -1,2 +1,3 @@
 # SEVENLAB
-App per statistiche calcio a 7
+
+Beta 0.8 · iPad landscape + robust authentication
