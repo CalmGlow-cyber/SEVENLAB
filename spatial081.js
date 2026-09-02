@@ -19,20 +19,22 @@
       .sp081head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
       .sp081title{font-size:18px;font-weight:900}.sp081meta{font-size:12px;opacity:.72;margin-top:3px}
       .sp081cancel{border:1px solid rgba(255,255,255,.18);background:transparent;color:inherit;border-radius:10px;min-height:38px;padding:6px 12px}
-      .sp081pitch{position:relative;width:100%;aspect-ratio:5/3;background:#174f32;border:3px solid rgba(255,255,255,.9);border-radius:8px;overflow:hidden;touch-action:none;cursor:crosshair}
+      .sp081pitch{position:relative;width:100%;aspect-ratio:5/3;background:#174f32;border:3px solid rgba(255,255,255,.9);border-radius:8px;overflow:visible;touch-action:none;cursor:crosshair}
       .sp081pitch:before{content:'';position:absolute;left:50%;top:0;bottom:0;border-left:2px solid rgba(255,255,255,.72)}
       .sp081pitch:after{content:'';position:absolute;left:50%;top:50%;width:16%;aspect-ratio:1;border:2px solid rgba(255,255,255,.72);border-radius:50%;transform:translate(-50%,-50%)}
       .sp081third{position:absolute;top:0;bottom:0;border-left:1px dashed rgba(255,255,255,.28)}.sp081t1{left:33.333%}.sp081t2{left:66.666%}
       .sp081boxarea{position:absolute;top:22%;bottom:22%;width:14%;border:2px solid rgba(255,255,255,.72)}.sp081boxL{left:-2px}.sp081boxR{right:-2px}
-      .sp081goal{position:absolute;top:39%;bottom:39%;width:2.5%;border:2px solid #fff}.sp081goalL{left:-2px}.sp081goalR{right:-2px}
-      .sp081opp{position:absolute;right:10px;top:8px;font-size:11px;font-weight:900;background:rgba(0,0,0,.48);padding:4px 7px;border-radius:7px;pointer-events:none}.sp081own{position:absolute;left:10px;top:8px;font-size:11px;font-weight:800;background:rgba(0,0,0,.38);padding:4px 7px;border-radius:7px;pointer-events:none}
-      .sp081dot{position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;border:4px solid #111;transform:translate(-50%,-50%);pointer-events:none;box-sizing:border-box}
+      .sp081goal{position:absolute;top:37%;bottom:37%;width:3.2%;border:4px solid currentColor;box-shadow:0 0 12px currentColor,0 0 22px color-mix(in srgb,currentColor 65%,transparent);z-index:4;pointer-events:none}
+      .sp081goalL{left:-4px;color:#1687ff;background:rgba(22,135,255,.18)}
+      .sp081goalR{right:-4px;color:#ff1f1f;background:rgba(255,31,31,.2)}
+      .sp081opp{position:absolute;right:10px;top:8px;font-size:11px;font-weight:900;background:#ff1f1f;color:#fff;padding:5px 8px;border-radius:7px;box-shadow:0 0 10px rgba(255,31,31,.65);pointer-events:none;z-index:5}.sp081own{position:absolute;left:10px;top:8px;font-size:11px;font-weight:900;background:#1687ff;color:#fff;padding:5px 8px;border-radius:7px;box-shadow:0 0 10px rgba(22,135,255,.6);pointer-events:none;z-index:5}
+      .sp081dot{position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;border:4px solid #111;transform:translate(-50%,-50%);pointer-events:none;box-sizing:border-box;z-index:6}
       .sp081hint{text-align:center;margin-top:8px;font-size:12px;opacity:.78}.sp081coords{text-align:center;font-weight:800;margin-top:5px;min-height:20px}
-      @media(max-width:700px){.sp081box{padding:10px}.sp081title{font-size:16px}.sp081pitch{aspect-ratio:5/3}.sp081hint{font-size:11px}}
+      @media(max-width:700px){.sp081box{padding:10px}.sp081title{font-size:16px}.sp081pitch{aspect-ratio:5/3}.sp081hint{font-size:11px}.sp081own,.sp081opp{font-size:10px;padding:4px 6px}}
     `;
     document.head.appendChild(style);
     const m=document.createElement('div');m.id='spatialModal081';
-    m.innerHTML=`<div class="sp081box"><div class="sp081head"><div><div id="sp081Title" class="sp081title">Posizione evento</div><div id="sp081Meta" class="sp081meta"></div></div><button id="sp081Cancel" class="sp081cancel">Annulla</button></div><div id="sp081Pitch" class="sp081pitch"><i class="sp081third sp081t1"></i><i class="sp081third sp081t2"></i><i class="sp081boxarea sp081boxL"></i><i class="sp081boxarea sp081boxR"></i><i class="sp081goal sp081goalL"></i><i class="sp081goal sp081goalR"></i><span class="sp081own">NOSTRA PORTA · X=0</span><span class="sp081opp">PORTA AVVERSARIA · X=50 →</span><span id="sp081Dot" class="sp081dot" hidden></span></div><div class="sp081hint">Un tap salva subito il punto. Coordinate normalizzate: X 0–50 m verso la porta avversaria, Y 0–30 m.</div><div id="sp081Coords" class="sp081coords"></div></div>`;
+    m.innerHTML=`<div class="sp081box"><div class="sp081head"><div><div id="sp081Title" class="sp081title">Posizione evento</div><div id="sp081Meta" class="sp081meta"></div></div><button id="sp081Cancel" class="sp081cancel">Annulla</button></div><div id="sp081Pitch" class="sp081pitch"><i class="sp081third sp081t1"></i><i class="sp081third sp081t2"></i><i class="sp081boxarea sp081boxL"></i><i class="sp081boxarea sp081boxR"></i><i class="sp081goal sp081goalL"></i><i class="sp081goal sp081goalR"></i><span class="sp081own">PORTA SQUADRA · X=0</span><span class="sp081opp">PORTA AVVERSARIA · X=50 →</span><span id="sp081Dot" class="sp081dot" hidden></span></div><div class="sp081hint">Un tap salva subito il punto. Coordinate normalizzate: X 0–50 m verso la porta avversaria, Y 0–30 m.</div><div id="sp081Coords" class="sp081coords"></div></div>`;
     document.body.appendChild(m);
     document.getElementById('sp081Cancel').onclick=close;
     document.getElementById('sp081Pitch').addEventListener('pointerdown',choose,{passive:false});
