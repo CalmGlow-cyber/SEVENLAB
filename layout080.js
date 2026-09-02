@@ -19,97 +19,31 @@
       #live.live080 .controls .btn,#live.live080 .setpiecebar070 .btn,#live.live080 #subBtn{min-height:46px}
       #live.live080 .liveplayer{margin-bottom:0}
       #live.live080 .countergrid{gap:7px}
-      @media (min-width:768px){
-        #live.live080 .liveplayer-top .name{font-size:17px}
-        #live.live080 .counter b{font-size:15px}
-        #live.live080 .counter small{font-size:11px}
-      }
+      @media (min-width:768px){#live.live080 .liveplayer-top .name{font-size:17px}#live.live080 .counter b{font-size:15px}#live.live080 .counter small{font-size:11px}}
       @media (orientation:landscape) and (min-width:700px){
-        body{overscroll-behavior-y:none}
-        #live.live080{padding-bottom:76px}
-        #live.live080>.card:first-child{position:sticky;top:0;z-index:60;margin-bottom:10px;box-shadow:0 10px 24px rgba(0,0,0,.28);backdrop-filter:blur(12px)}
-        #live.live080 .livehead{grid-template-columns:1fr auto 1fr!important;align-items:center!important}
-        #live.live080 .livehead>div:first-child{grid-column:1!important;justify-self:start}
-        #live.live080 .scorebox{grid-column:2!important;justify-self:center}
-        #live.live080 #subBtn{grid-column:3!important;width:auto!important;justify-self:end!important;margin:0!important}
-        #live.live080 .controls{display:grid!important;grid-template-columns:repeat(3,minmax(110px,1fr))!important;gap:8px!important;max-width:620px;margin:8px auto 0!important}
-        #live.live080 .setpiecebar070{display:grid!important;grid-template-columns:repeat(3,minmax(110px,1fr))!important;gap:8px!important;max-width:620px;margin:8px auto 0!important}
-        #live.live080 .gameScoreNames,#live.live080 .gameMeta,#live.live080 .gameLiveBadge,#live.live080 #pendingSetPiece070{text-align:center}
-        .liveTeamsGrid080{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
-        .teamLiveCol080{border-radius:14px;padding:8px;background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.05)}
-        .teamLiveTitle080{top:178px;text-align:center;font-size:13px}
-        .teamLiveList080{gap:8px}
-        #live.live080 .liveplayer{padding:10px}
-        #live.live080 .countergrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-        #live.live080 .counter{min-height:56px;padding:7px 4px!important}
-        #live.live080 .counter b{font-size:14px!important}
-        #live.live080 .counter small{font-size:10px!important}
-        #live.live080 .microstats{font-size:10px}
-        #live.live080 .cards070{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-        #live.live080 .cards070 .btn{min-height:42px}
-        #live.live080.game080 .liveTeamsGrid080{grid-template-columns:1fr!important;max-width:none}
-        #live.live080.game080 .teamLiveCol080{padding:10px}
-        #live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-        #live.live080.game080 .teamLiveTitle080{top:178px}
-        #live.live080.game080 .liveplayer{min-width:0;padding:11px}
-        #live.live080.game080 .counter{min-height:58px}
+        body{overscroll-behavior-y:none}#live.live080{padding-bottom:76px}#live.live080>.card:first-child{position:sticky;top:0;z-index:60;margin-bottom:10px;box-shadow:0 10px 24px rgba(0,0,0,.28);backdrop-filter:blur(12px)}
+        #live.live080 .livehead{grid-template-columns:1fr auto 1fr!important;align-items:center!important}#live.live080 .livehead>div:first-child{grid-column:1!important;justify-self:start}#live.live080 .scorebox{grid-column:2!important;justify-self:center}#live.live080 #subBtn{grid-column:3!important;width:auto!important;justify-self:end!important;margin:0!important}
+        #live.live080 .controls{display:grid!important;grid-template-columns:repeat(3,minmax(110px,1fr))!important;gap:8px!important;max-width:620px;margin:8px auto 0!important}#live.live080 .setpiecebar070{display:grid!important;grid-template-columns:repeat(3,minmax(110px,1fr))!important;gap:8px!important;max-width:620px;margin:8px auto 0!important}
+        #live.live080 .gameScoreNames,#live.live080 .gameMeta,#live.live080 .gameLiveBadge,#live.live080 #pendingSetPiece070{text-align:center}.liveTeamsGrid080{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}.teamLiveCol080{border-radius:14px;padding:8px;background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.05)}.teamLiveTitle080{top:178px;text-align:center;font-size:13px}.teamLiveList080{gap:8px}
+        #live.live080 .liveplayer{padding:10px}#live.live080 .countergrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}#live.live080 .counter{min-height:56px;padding:7px 4px!important}#live.live080 .counter b{font-size:14px!important}#live.live080 .counter small{font-size:10px!important}#live.live080 .microstats{font-size:10px}#live.live080 .cards070{display:grid;grid-template-columns:1fr 1fr;gap:6px}#live.live080 .cards070 .btn{min-height:42px}
+        #live.live080.game080 .liveTeamsGrid080{grid-template-columns:1fr!important;max-width:none}#live.live080.game080 .teamLiveCol080{padding:10px}#live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#live.live080.game080 .teamLiveTitle080{top:178px}#live.live080.game080 .liveplayer{min-width:0;padding:11px}#live.live080.game080 .counter{min-height:58px}
       }
-      @media (orientation:landscape) and (min-width:1024px){
-        #live.live080 .wrap,#live.live080{max-width:none}
-        #live.live080 .counter{min-height:60px}
-        #live.live080 .counter b{font-size:15px!important}
-        #live.live080 .counter small{font-size:11px!important}
-        .liveTeamsGrid080{gap:18px}
-        .teamLiveCol080{padding:10px}
-        #live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-      }
+      @media (orientation:landscape) and (min-width:1024px){#live.live080 .wrap,#live.live080{max-width:none}#live.live080 .counter{min-height:60px}#live.live080 .counter b{font-size:15px!important}#live.live080 .counter small{font-size:11px!important}.liveTeamsGrid080{gap:18px}.teamLiveCol080{padding:10px}#live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
     `;document.head.appendChild(s);
   }
 
   function reorganizeLive(){
     const c=C?.(),root=document.getElementById('livePlayers'),live=document.getElementById('live');if(!root||!c?.id)return;
-    const isGame=c.tipo==='partita';
-    live?.classList.toggle('game080',isGame);
-    const cards=[...root.querySelectorAll(':scope > .liveplayer')];
-    if(!cards.length){root.classList.add('liveTeams080');return}
-    const grid=document.createElement('div');grid.className='liveTeamsGrid080';
-    const cols={};
-    if(isGame){
-      const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team='A';
-      const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel('A',c);
-      const list=document.createElement('div');list.className='teamLiveList080';
-      col.append(title,list);grid.appendChild(col);cols.A=list;
-      cards.forEach(card=>cols.A.appendChild(card));
-    }else{
-      ['A','B'].forEach(t=>{
-        const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team=t;
-        const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel(t,c);
-        const list=document.createElement('div');list.className='teamLiveList080';
-        col.append(title,list);grid.appendChild(col);cols[t]=list;
-      });
-      cards.forEach(card=>{
-        const ev=card.querySelector('[data-ev]');const pid=ev?.dataset.ev?.split('|')?.[0];
-        let team=null;try{team=pid?teamOf(pid,c):null}catch(e){}
-        (cols[team]||cols.A).appendChild(card);
-      });
-      if(!cols.A.children.length)cols.A.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
-      if(!cols.B.children.length)cols.B.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
-    }
+    const isGame=c.tipo==='partita';live?.classList.toggle('game080',isGame);const cards=[...root.querySelectorAll(':scope > .liveplayer')];if(!cards.length){root.classList.add('liveTeams080');return}
+    const grid=document.createElement('div');grid.className='liveTeamsGrid080';const cols={};
+    if(isGame){const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team='A';const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel('A',c);const list=document.createElement('div');list.className='teamLiveList080';col.append(title,list);grid.appendChild(col);cols.A=list;cards.forEach(card=>cols.A.appendChild(card))}
+    else{['A','B'].forEach(t=>{const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team=t;const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel(t,c);const list=document.createElement('div');list.className='teamLiveList080';col.append(title,list);grid.appendChild(col);cols[t]=list});cards.forEach(card=>{const ev=card.querySelector('[data-ev]');const pid=ev?.dataset.ev?.split('|')?.[0];let team=null;try{team=pid?teamOf(pid,c):null}catch(e){}(cols[team]||cols.A).appendChild(card)});if(!cols.A.children.length)cols.A.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';if(!cols.B.children.length)cols.B.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>'}
     root.innerHTML='';root.appendChild(grid);root.classList.add('liveTeams080');
   }
 
   function install(){ensureStyles();document.getElementById('live')?.classList.add('live080');reorganizeLive()}
-  const oldRender=renderLive;
-  renderLive=function(){oldRender();install()};
-  window.addEventListener('resize',()=>{if(document.getElementById('live')?.classList.contains('active'))setTimeout(install,30)});
-  window.addEventListener('orientationchange',()=>setTimeout(install,150));
-  window.addEventListener('DOMContentLoaded',()=>setTimeout(install,600));
-  setTimeout(install,900);
-  window.SevenLab080={reorganizeLive};
+  const oldRender=renderLive;renderLive=function(){oldRender();install()};window.addEventListener('resize',()=>{if(document.getElementById('live')?.classList.contains('active'))setTimeout(install,30)});window.addEventListener('orientationchange',()=>setTimeout(install,150));window.addEventListener('DOMContentLoaded',()=>setTimeout(install,600));setTimeout(install,900);window.SevenLab080={reorganizeLive};
 })();
 
 // Spatial module loader. Cache key bumped for 0.8.2 LIVE paired recovery flow.
-(function(){
-  if(document.querySelector('script[data-sevenlab-spatial081]'))return;
-  const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8201';s.async=false;document.body.appendChild(s);
-})();
+(function(){if(document.querySelector('script[data-sevenlab-spatial081]'))return;const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8202';s.async=false;document.body.appendChild(s)})();
