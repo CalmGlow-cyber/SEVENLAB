@@ -47,8 +47,6 @@
         #live.live080 .microstats{font-size:10px}
         #live.live080 .cards070{display:grid;grid-template-columns:1fr 1fr;gap:6px}
         #live.live080 .cards070 .btn{min-height:42px}
-
-        /* GAME: one team only. Use landscape width to make players easier to find and tap. */
         #live.live080.game080 .liveTeamsGrid080{grid-template-columns:1fr!important;max-width:none}
         #live.live080.game080 .teamLiveCol080{padding:10px}
         #live.live080.game080 .teamLiveList080{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -74,10 +72,8 @@
     live?.classList.toggle('game080',isGame);
     const cards=[...root.querySelectorAll(':scope > .liveplayer')];
     if(!cards.length){root.classList.add('liveTeams080');return}
-
     const grid=document.createElement('div');grid.className='liveTeamsGrid080';
     const cols={};
-
     if(isGame){
       const col=document.createElement('section');col.className='teamLiveCol080';col.dataset.team='A';
       const title=document.createElement('div');title.className='teamLiveTitle080';title.textContent=teamLabel('A',c);
@@ -99,7 +95,6 @@
       if(!cols.A.children.length)cols.A.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
       if(!cols.B.children.length)cols.B.innerHTML='<div class="teamLiveEmpty080">Nessun giocatore in campo</div>';
     }
-
     root.innerHTML='';root.appendChild(grid);root.classList.add('liveTeams080');
   }
 
@@ -111,4 +106,10 @@
   window.addEventListener('DOMContentLoaded',()=>setTimeout(install,600));
   setTimeout(install,900);
   window.SevenLab080={reorganizeLive};
+})();
+
+// 0.8.1 spatial module loader. Kept separate so 0.8 stable branch remains untouched.
+(function(){
+  if(document.querySelector('script[data-sevenlab-spatial081]'))return;
+  const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8101';s.async=false;document.body.appendChild(s);
 })();
