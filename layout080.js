@@ -45,5 +45,5 @@
   const oldRender=renderLive;renderLive=function(){oldRender();install()};window.addEventListener('resize',()=>{if(document.getElementById('live')?.classList.contains('active'))setTimeout(install,30)});window.addEventListener('orientationchange',()=>setTimeout(install,150));window.addEventListener('DOMContentLoaded',()=>setTimeout(install,600));setTimeout(install,900);window.SevenLab080={reorganizeLive};
 })();
 
-// Spatial module loader. Cache key bumped for 0.8.2 LIVE paired recovery flow.
-(function(){if(document.querySelector('script[data-sevenlab-spatial081]'))return;const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8202';s.async=false;document.body.appendChild(s)})();
+// Spatial module loader. Cache key bumped for 0.8.3 fixed LIVE field orientation.
+(function(){if(document.querySelector('script[data-sevenlab-spatial081]'))return;const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8301';s.async=false;document.body.appendChild(s)})();
