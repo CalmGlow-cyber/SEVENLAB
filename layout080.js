@@ -108,8 +108,8 @@
   window.SevenLab080={reorganizeLive};
 })();
 
-// 0.8.1 spatial module loader. Kept separate so 0.8 stable branch remains untouched.
+// Spatial module loader. Cache key bumped for 0.8.2 LIVE paired recovery flow.
 (function(){
   if(document.querySelector('script[data-sevenlab-spatial081]'))return;
-  const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8101';s.async=false;document.body.appendChild(s);
+  const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8201';s.async=false;document.body.appendChild(s);
 })();
