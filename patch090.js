@@ -69,3 +69,9 @@
   setTimeout(()=>{markVersion090();applyWide090()},1000);
   setTimeout(()=>{markVersion090();applyWide090()},1800);
 })();
+
+// 0.9 UI-only polish for the Game goal-origin half-pitch. No event/stat logic changes.
+(function(){
+  if(document.querySelector('script[data-sevenlab-goalmap090]'))return;
+  const s=document.createElement('script');s.dataset.sevenlabGoalmap090='1';s.src='goalmap090.js?v=9001';s.async=false;document.body.appendChild(s);
+})();
