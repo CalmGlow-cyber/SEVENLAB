@@ -67,4 +67,5 @@
   window.addEventListener('orientationchange',()=>setTimeout(applyWide090,120));
   window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{markVersion090();applyWide090()},450));
   setTimeout(()=>{markVersion090();applyWide090()},1000);
+  setTimeout(()=>{markVersion090();applyWide090()},1800);
 })();
