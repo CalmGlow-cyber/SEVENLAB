@@ -47,3 +47,6 @@
 
 // Spatial module loader. Cache key bumped for 0.8.3 fixed LIVE field orientation.
 (function(){if(document.querySelector('script[data-sevenlab-spatial081]'))return;const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8301';s.async=false;document.body.appendChild(s)})();
+
+// Training RPE module loader.
+(function(){if(document.querySelector('script[data-sevenlab-rpe084]'))return;const s=document.createElement('script');s.dataset.sevenlabRpe084='1';s.src='patch084.js?v=8401';s.async=false;document.body.appendChild(s)})();
