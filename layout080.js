@@ -56,3 +56,6 @@
 
 // Beta 0.8.7 safe Stop confirmation for both Training Live and Game.
 (function(){if(document.querySelector('script[data-sevenlab-stop087]'))return;const s=document.createElement('script');s.dataset.sevenlabStop087='1';s.src='patch087.js?v=8701';s.async=false;document.body.appendChild(s)})();
+
+// Beta 0.8.8 restore Game goal-conceded control after role-control rebuilds.
+(function(){if(document.querySelector('script[data-sevenlab-game088]'))return;const s=document.createElement('script');s.dataset.sevenlabGame088='1';s.src='patch088.js?v=8801';s.async=false;document.body.appendChild(s)})();
