@@ -53,3 +53,6 @@
 
 // Beta 0.8.6 Game-only shots against + goal origin mapping.
 (function(){if(document.querySelector('script[data-sevenlab-game086]'))return;const s=document.createElement('script');s.dataset.sevenlabGame086='1';s.src='patch086.js?v=8601';s.async=false;document.body.appendChild(s)})();
+
+// Beta 0.8.7 safe Stop confirmation for both Training Live and Game.
+(function(){if(document.querySelector('script[data-sevenlab-stop087]'))return;const s=document.createElement('script');s.dataset.sevenlabStop087='1';s.src='patch087.js?v=8701';s.async=false;document.body.appendChild(s)})();
