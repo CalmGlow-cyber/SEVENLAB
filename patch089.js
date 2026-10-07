@@ -93,7 +93,7 @@
   exportSessionCSV=function(s){const original=downloadText;downloadText=function(text,name,mime){return original(augmentCSV089(text,s),name,mime)};try{return exportBefore089(s)}finally{downloadText=original}};
 
   function markVersion089(){
-    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.8.9';
+    const beta=document.querySelector('.beta');if(beta&&!/BETA 0\.9(?:\.|\b)/.test(beta.textContent||''))beta.textContent='BETA 0.8.9';
     document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\.8/.test(e.textContent||''))e.textContent='Beta 0.8.9 · Statistiche portiere separate'});
   }
   window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{markVersion089();try{adaptKeeperCards089()}catch(e){}},500));

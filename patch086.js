@@ -142,7 +142,7 @@
   exportSessionCSV=function(s){const original=downloadText;downloadText=function(text,name,mime){return original(augmentCSV086(text,s),name,mime)};try{return exportBefore086(s)}finally{downloadText=original}};
 
   function markVersion086(){
-    document.querySelector('.beta')?.replaceChildren(document.createTextNode('BETA 0.8.6'));
+    const beta=document.querySelector('.beta');if(beta&&!/BETA 0\.9(?:\.|\b)/.test(beta.textContent||''))beta.replaceChildren(document.createTextNode('BETA 0.8.6'));
     document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\.8/.test(e.textContent||''))e.textContent='Beta 0.8.6 · Game tiri subiti + mappa origine gol'});
   }
   window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{markVersion086();try{injectKeeperShot086()}catch(e){}},500));

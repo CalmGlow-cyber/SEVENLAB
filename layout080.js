@@ -49,16 +49,16 @@
 (function(){if(document.querySelector('script[data-sevenlab-spatial081]'))return;const s=document.createElement('script');s.dataset.sevenlabSpatial081='1';s.src='spatial081.js?v=8301';s.async=false;document.body.appendChild(s)})();
 
 // RPE + effective-role controls + quick penalties module loader.
-(function(){if(document.querySelector('script[data-sevenlab-rpe084]'))return;const s=document.createElement('script');s.dataset.sevenlabRpe084='1';s.src='patch084.js?v=9501';s.async=false;document.body.appendChild(s)})();
+(function(){if(document.querySelector('script[data-sevenlab-rpe084]'))return;const s=document.createElement('script');s.dataset.sevenlabRpe084='1';s.src='patch084.js?v=9602';s.async=false;document.body.appendChild(s)})();
 
 // Beta 0.8.6 Game-only shots against + goal origin mapping.
-(function(){if(document.querySelector('script[data-sevenlab-game086]'))return;const s=document.createElement('script');s.dataset.sevenlabGame086='1';s.src='patch086.js?v=9501';s.async=false;document.body.appendChild(s)})();
+(function(){if(document.querySelector('script[data-sevenlab-game086]'))return;const s=document.createElement('script');s.dataset.sevenlabGame086='1';s.src='patch086.js?v=9602';s.async=false;document.body.appendChild(s)})();
 
 // Beta 0.8.7 safe Stop confirmation for both Training Live and Game.
 (function(){if(document.querySelector('script[data-sevenlab-stop087]'))return;const s=document.createElement('script');s.dataset.sevenlabStop087='1';s.src='patch087.js?v=8701';s.async=false;document.body.appendChild(s)})();
 
 // Beta 0.8.8 restore Game goal-conceded control after role-control rebuilds.
-(function(){if(document.querySelector('script[data-sevenlab-game088]'))return;const s=document.createElement('script');s.dataset.sevenlabGame088='1';s.src='patch088.js?v=9601';s.async=false;document.body.appendChild(s)})();
+(function(){if(document.querySelector('script[data-sevenlab-game088]'))return;const s=document.createElement('script');s.dataset.sevenlabGame088='1';s.src='patch088.js?v=9602';s.async=false;document.body.appendChild(s)})();
 
 // Beta 0.8.9 keep Game goalkeeper outcomes separate: shot faced, save, goal conceded.
-(function(){if(document.querySelector('script[data-sevenlab-game089]'))return;const s=document.createElement('script');s.dataset.sevenlabGame089='1';s.src='patch089.js?v=9501';s.async=false;document.body.appendChild(s)})();
+(function(){if(document.querySelector('script[data-sevenlab-game089]'))return;const s=document.createElement('script');s.dataset.sevenlabGame089='1';s.src='patch089.js?v=9602';s.async=false;document.body.appendChild(s)})();

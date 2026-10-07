@@ -223,7 +223,7 @@
   }
 
   function markVersion(){
-    document.querySelector('.beta')?.replaceChildren(document.createTextNode('BETA 0.8.5'));
+    const beta=document.querySelector('.beta');if(beta&&!/BETA 0\.9(?:\.|\b)/.test(beta.textContent||''))beta.replaceChildren(document.createTextNode('BETA 0.8.5'));
     document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\.8/.test(e.textContent||''))e.textContent='Beta 0.8.5 · Ruolo effettivo + rigori rapidi + RPE'});
   }
   window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{injectRPE();markVersion()},350));

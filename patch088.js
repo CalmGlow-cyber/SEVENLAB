@@ -33,7 +33,7 @@
   const renderBefore088=renderLive;
   renderLive=function(){const r=renderBefore088.apply(this,arguments);try{injectGoalAgainst088()}catch(e){}return r};
   function markVersion088(){
-    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.8.8';
+    const beta=document.querySelector('.beta');if(beta&&!/BETA 0\.9(?:\.|\b)/.test(beta.textContent||''))beta.textContent='BETA 0.8.8';
     document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\.8/.test(e.textContent||''))e.textContent='Beta 0.8.8 · Ripristino Gol subito in Game'});
   }
   window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{markVersion088();try{injectGoalAgainst088()}catch(e){}},500));
