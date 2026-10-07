@@ -1,4 +1,4 @@
-// SevenLab 0.9.6 — session acquisition mode: Diretta / Differita + video playback speed.
+// SevenLab 0.9.7 — session acquisition mode: Diretta / Differita + video playback speed.
 // Additive patch: preserves all existing Live/Game event, timing, archive and CSV logic.
 (function(){
   const GAME='partita';
@@ -89,7 +89,7 @@
       x.block?.scrollIntoView({behavior:'smooth',block:'center'});
       return false;
     }
-    if(x.mode===MODE_DELAYED&&(!(x.speed>0)){
+    if(x.mode===MODE_DELAYED&&!(x.speed>0)){
       try{toast('Inserisci la velocità di riproduzione video')}catch(e){}
       x.input?.focus();
       return false;
@@ -123,7 +123,7 @@
         const c=C?.();
         if(c?.id&&id==='formazioni'&&c.tipo!==GAME)applyToCurrent094('training');
         if(c?.id&&id==='live'&&c.tipo===GAME)applyToCurrent094('game');
-      }catch(e){console.error('SevenLab 0.9.4 acquisition metadata',e)}
+      }catch(e){console.error('SevenLab 0.9.7 acquisition metadata',e)}
       return goBefore094.apply(this,arguments);
     };
   }
@@ -182,8 +182,8 @@
   }
 
   function markVersion094(){
-    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.9.6';
-    document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\./.test(e.textContent||''))e.textContent='Beta 0.9.6 · Diretta/Differita + Game fuori ruolo'});
+    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.9.7';
+    document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\./.test(e.textContent||''))e.textContent='Beta 0.9.7 · Diretta/Differita + Game fuori ruolo'});
   }
 
   ensureUI094();markVersion094();
