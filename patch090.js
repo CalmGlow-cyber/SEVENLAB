@@ -58,8 +58,14 @@
   renderLive=function(){const r=renderBefore090.apply(this,arguments);ensureWideStyles090();requestAnimationFrame(applyWide090);return r};
 
   function markVersion090(){
-    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.9';
-    document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\./.test(e.textContent||''))e.textContent='Beta 0.9 · Live/Game wide screen iPad + desktop'});
+    const beta=document.querySelector('.beta');
+    // A layout module must never overwrite the version of a later release.
+    const version=String(beta?.textContent||'').match(/0\.(\d+)(?:\.(\d+))?/);
+    if(beta&&(!version||Number(version[1])<9))beta.textContent='BETA 0.9';
+    document.querySelectorAll('.settingsvalue').forEach(e=>{
+      const v=String(e.textContent||'').match(/Beta 0\.(\d+)(?:\.(\d+))?/);
+      if(v&&Number(v[1])<9)e.textContent='Beta 0.9 · Live/Game wide screen iPad + desktop';
+    });
   }
 
   ensureWideStyles090();

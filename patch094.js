@@ -1,4 +1,4 @@
-// SevenLab 0.9.4 — session acquisition mode: Diretta / Differita + video playback speed.
+// SevenLab 0.9.6 — session acquisition mode: Diretta / Differita + video playback speed.
 // Additive patch: preserves all existing Live/Game event, timing, archive and CSV logic.
 (function(){
   const GAME='partita';
@@ -156,7 +156,7 @@
   }
   function enc094(v){return `"${String(v??'').replaceAll('"','""')}"`}
   function modeLabel094(v){return v===MODE_DELAYED?'Differita':v===MODE_DIRECT?'Diretta':''}
-  function speedLabel094(v){const n=Number(v);return Number.isFinite(n)&&n>0?`${n.toFixed(2)}x`:'w'}
+  function speedLabel094(v){const n=Number(v);return Number.isFinite(n)&&n>0?`${n.toFixed(2)}x`:''}
   function augmentCSV094(text,s){
     const label=modeLabel094(s?.modalita_rilevazione);if(!label)return text;
     let rows=parseCSV094(text).filter(r=>r[0]!=='Modalità rilevazione'&&r[0]!=='Velocità riproduzione');
@@ -182,8 +182,8 @@
   }
 
   function markVersion094(){
-    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.9.4';
-    document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\./.test(e.textContent||''))e.textContent='Beta 0.9.4 · Diretta/Differita + velocità video'});
+    const beta=document.querySelector('.beta');if(beta)beta.textContent='BETA 0.9.6';
+    document.querySelectorAll('.settingsvalue').forEach(e=>{if(/Beta 0\./.test(e.textContent||''))e.textContent='Beta 0.9.6 · Diretta/Differita + Game fuori ruolo'});
   }
 
   ensureUI094();markVersion094();
