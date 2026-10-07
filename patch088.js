@@ -10,7 +10,7 @@
   }
   function isEffectiveKeeper088(pid,c=C?.()){
     const a=assignment088(pid,c),p=DB.roster.find(x=>String(x.id)===String(pid));
-    return (a?.desired||p?.role)==='P';
+    return p?.role==='P';
   }
   function addGoalAgainst088(){
     const c=C?.();if(!isGame088(c))return;

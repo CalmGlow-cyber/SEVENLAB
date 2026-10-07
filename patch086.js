@@ -11,7 +11,7 @@
     }
     return null;
   }
-  function isKeeper086(pid,c=C?.()){return assignment086(pid,c)?.desired==='P'}
+  function isKeeper086(pid,c=C?.()){return DB.roster.find(x=>String(x.id)===String(pid))?.role==='P'}
   function countAgainst086(pid,c=C?.()){return (c?.events||[]).filter(e=>!e.void&&e.type==='shot_against'&&String(e.pid)===String(pid)).length}
   function totalAgainst086(s){return (s?.events||[]).filter(e=>!e.void&&e.type==='shot_against').length}
 

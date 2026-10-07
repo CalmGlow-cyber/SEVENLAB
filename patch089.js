@@ -11,7 +11,7 @@
   }
   function isKeeper089(pid,c=C?.()){
     const a=assignment089(pid,c),p=DB.roster.find(x=>String(x.id)===String(pid));
-    return (a?.desired||p?.role)==='P';
+    return p?.role==='P';
   }
   function count089(pid,type,c=C?.()){
     return (c?.events||[]).filter(e=>!e.void&&e.type===type&&String(e.pid)===String(pid)).length;

@@ -20,7 +20,7 @@
     const a=currentAssignment084(pid,c),nat=naturalRole084(pid);if(!a||!nat)return false;
     try{return !compatible(nat,a.desired)}catch(e){return !!a.outRole}
   }
-  function isEffectiveKeeper084(pid,c=C()){return effectiveRole084(pid,c)==='P'}
+  function isEffectiveKeeper084(pid,c=C()){return naturalRole084(pid)==='P'}
   function roleName084(r){return RN?.[r]||r||''}
 
   // Stamp every newly-created event with the natural and actually-performed role.
